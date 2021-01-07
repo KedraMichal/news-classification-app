@@ -8,7 +8,7 @@ app = Flask(__name__)
 Bootstrap(app)
 
 
-with open('resource/rmm.json', 'r') as f:
+with open('resources/app_data.json', 'r') as f:
     data = json.load(f)
 data = data['articles']
 for i in data:
@@ -18,7 +18,7 @@ for i in data:
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('main1.html', data=data)
+    return render_template('main.html', data=data)
 
 
 @app.route('/info')
@@ -45,7 +45,7 @@ def date_sort():
     elif actual_cat == "" or actual_cat == "Pozostałe":
         sorted_data = sorted(data, key=lambda k: k['date'])
 
-    return render_template('main1.html', data=sorted_data, actual_category=actual_cat)
+    return render_template('main.html', data=sorted_data, actual_category=actual_cat)
 
 
 @app.route('/date_sort2')
@@ -61,19 +61,19 @@ def date_sort2():
     elif actual_cat == "" or actual_cat == "Pozostałe":
         sorted_data = sorted(data, key=lambda k: k['date'], reverse=True)
 
-    return render_template('main1.html', data=sorted_data, actual_category=actual_cat)
+    return render_template('main.html', data=sorted_data, actual_category=actual_cat)
 
 
 @app.route('/update')
 def update():
-    p.modify_app_database("resource/rmm.json", p.main_model, p.input_layer_words, p.output_layer_categories, True)
-    with open('resource/rmm.json', 'r') as f:
+    p.modify_app_database("resources/app_data.json", p.main_model, p.input_layer_words, p.output_layer_categories, True)
+    with open('resources/app_data.json', 'r') as f:
         data = json.load(f)
     data = data['articles']
     for i in data:
         i['date'] = datetime.strptime(i['date'], "%Y-%m-%dT%H:%M:%SZ")
 
-    return render_template('main1.html', data=data)
+    return render_template('main.html', data=data)
 
 
 @app.route('/category')
@@ -84,7 +84,7 @@ def category():
         if art['category'] == chosen_category:
             new_data.append(art)
 
-    return render_template('main1.html', data=new_data, actual_category=chosen_category)
+    return render_template('main.html', data=new_data, actual_category=chosen_category)
 
 
 if __name__ == "__main__":

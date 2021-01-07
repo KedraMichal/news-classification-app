@@ -49,7 +49,7 @@ def clear_json(filename):
         json_to_update['articles'].remove(i)
 
     for article in json_to_update['articles'].copy():
-        if len(article['description']) < 180:
+        if len(article['description']) < 175:
             json_to_update['articles'].remove(article)
 
     with open(filename, "w", errors='ignore') as outfile:
@@ -58,6 +58,6 @@ def clear_json(filename):
 
 if __name__ == '__main__':
     #make_json("news_data.json", False)
-    make_json("resource/generated/news_data.json", True)
+    make_json("resources/generated/news_data.json", True)
 
 

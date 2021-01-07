@@ -9,7 +9,7 @@ from stempel import StempelStemmer
 np.set_printoptions(suppress=True)
 
 
-with open('resource/generated/news_data.json', 'r') as f:
+with open('resources/generated/news_data.json', 'r') as f:
     data = json.load(f)
 
 all_words = []
@@ -30,7 +30,7 @@ all_words = list(set(all_words))
 all_words.remove(None)
 all_words = sorted(all_words)
 
-with open('resource/generated/input_layer_words.txt', 'w') as datafile:
+with open('resources/generated/input_layer_words.txt', 'w') as datafile:
     json.dump(all_words, datafile)
 
 unique_categories = ['sports', 'health', 'business', 'entertainment', 'technology']
@@ -72,7 +72,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.7)
 # model.fit(x_train, y_train, epochs=20)
 # model.save("model.h5")
 
-model = keras.models.load_model("resource/generated/model.h5")
+model = keras.models.load_model("resources/generated/model.h5")
 #
 predicted = model.predict_classes(x_test)
 sum_test_y = len(predicted)

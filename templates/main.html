@@ -1,0 +1,60 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+
+
+<div style="margin: 10px 50px;">
+    <div class="navbar navbar-default" style="display: flex;flex-direction: row;justify-content: space-evenly;">
+        <div>
+            <button><a href="{{ url_for('update') }}">Pobierz nowe dane</a></button>
+        </div>
+
+        <div>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Wybierz kategorie
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="{{ url_for('category', category='Sport') }}">Sport</a></li>
+                <li><a href="{{ url_for('category', category='Zdrowie') }}">Zdrowie</a></li>
+                <li><a href="{{ url_for('category', category='Biznes') }}">Biznes</a></li>
+                <li><a href="{{ url_for('category', category='Rozrywka') }}">Rozrywka</a></li>
+                <li><a href="{{ url_for('category', category='Technologie') }}">Technologie</a></li>
+                <li><a href="{{ url_for('category', category='Pozostałe') }}">Pozostałe</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{{ url_for('home') }}">Wszystkie</a></li>
+              </ul>
+            </div>
+        </div>
+
+            <div >
+                <button><a href="{{ url_for('date_sort2', category=actual_category) }}">Sortuj od najnowszych</a></button>
+            </div>
+
+            <div >
+                <button><a href="{{ url_for('date_sort', category=actual_category) }}">Sortuj od najstarszych</a></button>
+            </div>
+        </div>
+
+    <p class="lead" style="text-align:center" >{{ actual_category }}</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Tytuł artykułu</th>
+      <th scope="col">Data</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for art in data %}
+    <tr>
+      <td><a href="{{ url_for('info', my_var=art.title) }}">{{ art.title }}</a></td>
+      <td>{{ art.date }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% endblock %}

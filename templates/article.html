@@ -1,0 +1,19 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+
+    <div style="margin: 10%;">
+        <div style="display: flex;flex-direction: row;">
+            <img  style="width: 500px;" src="{{ article.urlimage }}">
+            <div style="margin-left: 20px;">
+                <p style="font-size: 2.1em">{{ article.title }}</p>
+                <p>Kategoria: {{ article.category }}</p>
+                <p>Data publikacji: {{ article.date }}</p>
+                <p style="font-size: 1.4em">{{ article.description }}</p>
+                <p>Link do całego artykułu: <a href="{{ article.url }}">{{ article.url }}</a></p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

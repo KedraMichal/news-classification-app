@@ -3,7 +3,7 @@ import nltk
 import numpy as np
 import keras
 from stempel import StempelStemmer
-from data_for_model import remove_duplicates_from_list, clear_json
+from data_for_model import clear_json
 import requests
 
 

@@ -4,15 +4,21 @@ from flask_bootstrap import Bootstrap
 from datetime import datetime
 import predict as p
 
+
+def read_database():
+    with open('resources/app_data.json', 'r') as f:
+        data = json.load(f)
+    data = data['articles']
+    for i in data:
+        i['date'] = datetime.strptime(i['date'], "%Y-%m-%dT%H:%M:%SZ")
+
+    return data
+
+
 app = Flask(__name__)
 Bootstrap(app)
 
-
-with open('resources/app_data.json', 'r') as f:
-    data = json.load(f)
-data = data['articles']
-for i in data:
-    i['date'] = datetime.strptime(i['date'], "%Y-%m-%dT%H:%M:%SZ")
+data = read_database()
 
 
 @app.route('/')
@@ -67,11 +73,8 @@ def date_sort2():
 @app.route('/update')
 def update():
     p.modify_app_database("resources/app_data.json", p.main_model, p.input_layer_words, p.output_layer_categories, True)
-    with open('resources/app_data.json', 'r') as f:
-        data = json.load(f)
-    data = data['articles']
-    for i in data:
-        i['date'] = datetime.strptime(i['date'], "%Y-%m-%dT%H:%M:%SZ")
+    global data
+    data = read_database()
 
     return render_template('main.html', data=data)
 

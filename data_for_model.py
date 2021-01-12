@@ -57,7 +57,7 @@ def clear_json(filename):
 
 
 if __name__ == '__main__':
-    #make_json("news_data.json", False)
+    # make_json("news_data.json", False)
     make_json("resources/generated/news_data.json", True)
 
 

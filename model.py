@@ -6,9 +6,6 @@ from sklearn.model_selection import train_test_split
 from stempel import StempelStemmer
 
 
-np.set_printoptions(suppress=True)
-
-
 with open('resources/generated/news_data.json', 'r') as f:
     data = json.load(f)
 
@@ -61,30 +58,25 @@ x = np.asarray(x)
 y = np.asarray(y)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.7)
-# #
-#
-# model = keras.models.Sequential()
-# model.add(keras.layers.Dense(32, input_shape=[len(all_words)], activation='relu'))
-# model.add(keras.layers.Dense(32, activation='relu'))
-# model.add(keras.layers.Dense(len(unique_categories), activation='softmax'))
-#
-# model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-# model.fit(x_train, y_train, epochs=20)
-# model.save("model.h5")
 
-model = keras.models.load_model("resources/generated/model.h5")
-#
+try:
+    model = keras.models.load_model("resources/generated/model.h5")
+except (IOError, OSError):
+    model = keras.models.Sequential()
+    model.add(keras.layers.Dense(32, input_shape=[len(all_words)], activation='relu'))
+    model.add(keras.layers.Dense(32, activation='relu'))
+    model.add(keras.layers.Dense(len(unique_categories), activation='softmax'))
+
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    model.fit(x_train, y_train, epochs=20)
+    model.save("resources/generated/modekl.h5")
+
 predicted = model.predict_classes(x_test)
 sum_test_y = len(predicted)
 predicted_correct = 0
-distr = model.predict(x_test)
 for i in range(len(predicted)):
-
-    print(predicted[i], np.argmax(y_test[i, :]))
-    print(distr[i, :])
     if predicted[i] == np.argmax(y_test[i, :]):  # argmax z [[0 0 0 0 1 0]]
         predicted_correct += 1
-print(unique_categories)
 print(predicted_correct / sum_test_y)
 
 

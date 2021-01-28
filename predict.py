@@ -59,5 +59,4 @@ with open('resources/generated/input_layer_words.txt', 'r') as words:
     input_layer_words = json.load(words)
 output_layer_categories = ['Sport', 'Zdrowie', 'Biznes', 'Rozrywka', 'Technologie']
 
-#modify_app_database("resources/app_data.json", main_model, input_layer_words, output_layer_categories, True)
-# modify_app_database("rss2s.json", main_model, input_layer_words, output_layer_categories, True)
+

@@ -20,6 +20,7 @@ for article in data['articles']:
     all_articles.append(art.lower())
     all_categories.append(article['category'])
 
+
 stemmer = StempelStemmer.default()
 all_words = [stemmer.stem(word) for word in all_words]
 
@@ -47,6 +48,7 @@ for article in all_articles:
 
     x.append(used_words)
 
+
 for category in all_categories:
     row = [0] * len(unique_categories)
     category_number = unique_categories.index(category)
@@ -57,8 +59,8 @@ for category in all_categories:
 x = np.asarray(x)
 y = np.asarray(y)
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.7)
 
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.7)
 try:
     model = keras.models.load_model("resources/generated/model.h5")
 except (IOError, OSError):
@@ -71,11 +73,12 @@ except (IOError, OSError):
     model.fit(x_train, y_train, epochs=20)
     model.save("resources/generated/modekl.h5")
 
+
 predicted = model.predict_classes(x_test)
 sum_test_y = len(predicted)
 predicted_correct = 0
 for i in range(len(predicted)):
-    if predicted[i] == np.argmax(y_test[i, :]):  # argmax z [[0 0 0 0 1 0]]
+    if predicted[i] == np.argmax(y_test[i, :]):
         predicted_correct += 1
 print(predicted_correct / sum_test_y)
 

@@ -1,0 +1,9 @@
+Keras==2.3.1
+Flask==1.1.2
+numpy==1.17.4
+requests==2.22.0
+pystempel==1.2.0
+Flask_Bootstrap==3.3.7.1
+nltk==3.4.5
+scikit_learn==0.24.1
+stempel==0.1.0
